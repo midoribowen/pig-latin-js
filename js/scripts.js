@@ -68,7 +68,7 @@ for ( var x = 0; x < words.length; x++ )
       }
       else
       {
-        if ( words[ x ][ i ] === "q" && words[ x ][ i + 1 ] === "u" )
+        if ( (words[ x ][ i ] === "q" && words[ x ][ i + 1 ] === "u") || (words[ x ][ i ] === "Q" && words[ x ][ i + 1 ] === "u") )
         {
           consonantsFound += "qu";
           i += 1;
@@ -97,3 +97,21 @@ String.prototype.startsWithVowel = function( ) {
   }
   return false;
 }
+
+$(document).ready(function() {
+  $("form#latin").submit(function(event) {
+    event.preventDefault();
+    clearTranslation();
+
+    var input = $("input#latin-input").val();
+    var translatedInput = new Word(input).pigLatin();
+
+    $("p#show-translation").append("<span class='translation'>" + translatedInput + "</span>");
+
+  });
+
+  function clearTranslation () {
+    $("p#show-translation").empty();
+  }
+
+});
